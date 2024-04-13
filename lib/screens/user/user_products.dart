@@ -123,7 +123,7 @@ class _UserProductsState extends State<UserProducts> {
                  context,
                  MaterialPageRoute(
                      builder: (BuildContext context) =>
-                         UserCart(Exhabitname: '${widget.Exhabitname}',)) );
+                         UserCart(Exhabit: '${widget.Exhabitname}',)) );
 
              //  showAlertDialog(context);
            },child: Text("شراء",style: TextStyle(fontSize: 15,color: Colors.black),),)

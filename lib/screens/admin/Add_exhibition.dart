@@ -349,9 +349,9 @@ class _AddExhibitionState extends State<AddExhibition> {
                         .reference()
                         .child('exhibittions');
                     String? id = userRef.push().key;
-                    String role = 'معرض';
-                    String uid = userCredential.user!.uid;
-                    int dt = DateTime.now().millisecondsSinceEpoch;
+                    String? role = 'معرض';
+                    String? uid = userCredential.user!.uid;
+                    int? dt = DateTime.now().millisecondsSinceEpoch;
                     user!.updateProfile(displayName: role);
                     await userRef.child(id!).set({
                     'name': name,
@@ -368,10 +368,10 @@ class _AddExhibitionState extends State<AddExhibition> {
                     DatabaseReference exhibitRef = FirebaseDatabase
                         .instance
                         .reference()
-                        .child('users');
+                        .child('Users');
 
                     await exhibitRef .child(uid).set({
-                      'name': name,
+                      'fullName': name,
                       'email': email,
                       'password': password,
                       'uid': uid,

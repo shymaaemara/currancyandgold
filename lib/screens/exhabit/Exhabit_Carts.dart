@@ -7,8 +7,8 @@ import '../admin/admin_exhibition.dart';
 class ExhabitCarts extends StatefulWidget {
   static const routeName = '/ExhabitCarts';
 
-  final String Exhabitname;
-  const ExhabitCarts({super.key , required this.Exhabitname});
+   String Exhabit;
+   ExhabitCarts({super.key , required this.Exhabit});
 
   @override
   State<ExhabitCarts> createState() => _ExhabitCartsState();
@@ -33,7 +33,7 @@ class _ExhabitCartsState extends State<ExhabitCarts> {
   void fetchCarts() async {
     app = await Firebase.initializeApp();
     database = FirebaseDatabase(app: app);
-    base = database.reference().child('Carts').child('${widget.Exhabitname}');
+    base = database.reference().child('Carts').child('${widget.Exhabit}');
     base.onChildAdded.listen((event) {
       print(event.snapshot.value);
       Carts p = Carts.fromJson(event.snapshot.value);
@@ -98,7 +98,7 @@ class _ExhabitCartsState extends State<ExhabitCarts> {
     ),
 
       Container(height: 10,),
-    Text('  الكميه :${cartList[i].count.toString()}', style:
+    Text('  الكميه :${cartList[i].number.toString()}', style:
     TextStyle(fontSize: 17, fontWeight: FontWeight.w600,color: Colors.black)),
       Container(height: 10,),
 
@@ -123,10 +123,10 @@ class _ExhabitCartsState extends State<ExhabitCarts> {
               context,
               MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      ExhabitCarts(Exhabitname: '${widget.Exhabitname}',)));
+                      ExhabitCarts(Exhabit: '${widget.Exhabit}',)));
           FirebaseDatabase.instance
               .reference()
-              .child('Carts')
+              .child('Carts').child("${widget.Exhabit}")
               .child('${cartList[i].id}')
               .remove();
         },

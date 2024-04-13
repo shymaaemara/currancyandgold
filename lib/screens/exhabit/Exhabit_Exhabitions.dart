@@ -9,8 +9,8 @@ import '../../models/user_model.dart';
 import 'Exhabit_products.dart';
 class ExhabitExhabitions extends StatefulWidget {
   static const routeName = '/ExhabitExhabitions';
-  final String Exhabitname;
-  const ExhabitExhabitions({super.key, required this.Exhabitname,});
+   String Exhabitname;
+   ExhabitExhabitions({super.key, required this.Exhabitname,});
 
   @override
   State<ExhabitExhabitions> createState() => _ExhabitExhabitionsState();
@@ -35,7 +35,7 @@ class _ExhabitExhabitionsState extends State<ExhabitExhabitions> {
   void fetchexhibittions() async {
     app = await Firebase.initializeApp();
     database = FirebaseDatabase(app: app);
-    base = database.reference().child("exhibittions").child("${widget.Exhabitname}");
+    base = database.reference().child("exhibittions");
     base.onChildAdded.listen((event) {
       print(event.snapshot.value);
       Exhibit p = Exhibit.fromJson(event.snapshot.value);

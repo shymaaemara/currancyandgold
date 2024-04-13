@@ -8,8 +8,8 @@ import '../../models/user_model.dart';
 import 'User_Exhabitions.dart';
 class UserCart extends StatefulWidget {
   static const routeName = '/ UserCart';
-  final String  Exhabitname;
-  const UserCart({super.key, required this.Exhabitname});
+   String  Exhabit;
+   UserCart({super.key, required this.Exhabit});
 
   @override
   State<UserCart> createState() => _UserCartState();
@@ -19,7 +19,7 @@ class _UserCartState extends State<UserCart> {
   var nameController = TextEditingController();
  var phoneController=TextEditingController();
   var addressController = TextEditingController();
-  var countController = TextEditingController();
+  var numberController = TextEditingController();
 
 
 
@@ -76,7 +76,7 @@ class _UserCartState extends State<UserCart> {
                 )),
             SizedBox(height: 20,),
             TextField(
-                controller: countController,
+                controller: numberController,
                 style: TextStyle(
                     fontFamily: "yel", color: Colors.amber.shade500),
                 keyboardType: TextInputType.text,
@@ -127,7 +127,7 @@ class _UserCartState extends State<UserCart> {
               ),
               onPressed: () async {
                 String name = nameController.text.trim();
-                int count = int.parse(countController.text);
+                String number =numberController.text.trim() ;
                 String address = addressController.text.trim();
                 String phone = phoneController.text.trim();
 
@@ -139,7 +139,7 @@ class _UserCartState extends State<UserCart> {
                   Fluttertoast.showToast(msg: 'Please enter phone');
                   return;
                 }
-                if (count==null) {
+                if (number.isEmpty) {
                   Fluttertoast.showToast(msg: 'Please enter count ');
                   return;
                 }
@@ -157,7 +157,7 @@ class _UserCartState extends State<UserCart> {
                   DatabaseReference userRef = FirebaseDatabase
                       .instance
                       .reference()
-                      .child('Carts').child("${widget.Exhabitname}");
+                      .child('Carts').child("${widget.Exhabit}");
                   String? id = userRef.push().key;
 
                   String uid = user!.uid;
@@ -168,7 +168,7 @@ class _UserCartState extends State<UserCart> {
 
                     'address': address,
                     'uid': uid,
-                    'count ': count ,
+                    'number ': number ,
                     'id': id,
                     'phone': phone,
 

@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/exhibit_model.dart';
 import '../../models/user_model.dart';
 import '../user/openscreen.dart';
 import 'Exhabit_Carts.dart';
@@ -34,15 +35,25 @@ class _ExhabitHomeState extends State<ExhabitHome> {
     database = FirebaseDatabase(app: app);
     base = database
         .reference()
-        .child("users")
+        .child("Users")
         .child(FirebaseAuth.instance.currentUser!.uid);
 
     final snapshot = await base.get();
     setState(() {
       currentUser = Users.fromSnapshot(snapshot);
-      print(currentUser);
+      print('${currentUser}');
     });
   }
+
+  List<Exhibit> ExhibitList = [];
+  List<String> keyslist = [];
+
+
+
+
+
+  @override
+
   @override
   Widget build(BuildContext context) {
     return
@@ -100,69 +111,71 @@ class _ExhabitHomeState extends State<ExhabitHome> {
                 Container(height: 20,),
                 Padding(
                   padding: EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: SizedBox(
-                              height: 120,
-                              width: 120,
-                              child: ElevatedButton.icon(
-                                  style: ButtonStyle(
-                                      foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.black),
-                                      backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.amber.shade500),
-                                      shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                  bottomLeft: Radius.circular(20),
-                                                  topRight: Radius.circular(20)),
-                                              side: BorderSide(
-                                                  color: Colors.blue.shade900)))),
-                                  onPressed: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) => ExhabitExhabitions(Exhabitname: '${currentUser.fullName}',)));
-                                  },
-                                  icon: Icon(Icons.ac_unit),
-                                  label: Text(
-                                    "المعارض",
-                                  )),
-                            ),
-                          )),
-                      Expanded(
-                        child: SizedBox(
-                          height: 120,
-                          width: 120,
-                          child: ElevatedButton.icon(
-                              style: ButtonStyle(
-                                  foregroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Colors.black),
-                                  backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Colors.amber.shade500),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(20),
-                                              topRight: Radius.circular(20)),
-                                          side: BorderSide(
-                                              color: Colors.blue.shade900)))),
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => ExhabitCarts(Exhabitname: '${currentUser.fullName}',)));
-                              },
-                              icon: Icon(Icons.ac_unit),
-                              label: Text("طلبات الشراء")),
+                  child: Container(
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: SizedBox(
+                                height: 120,
+                                width: 120,
+                                child: ElevatedButton.icon(
+                                    style: ButtonStyle(
+                                        foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.black),
+                                        backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.amber.shade500),
+                                        shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                    bottomLeft: Radius.circular(20),
+                                                    topRight: Radius.circular(20)),
+                                                side: BorderSide(
+                                                    color: Colors.blue.shade900)))),
+                                    onPressed: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => ExhabitExhabitions(Exhabitname: '${currentUser.fullName}',)));
+                                    },
+                                    icon: Icon(Icons.ac_unit),
+                                    label: Text(
+                                      "المعارض",
+                                    )),
+                              ),
+                            )),
+                        Expanded(
+                          child: SizedBox(
+                            height: 120,
+                            width: 120,
+                            child: ElevatedButton.icon(
+                                style: ButtonStyle(
+                                    foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.black),
+                                    backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.amber.shade500),
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(20),
+                                                topRight: Radius.circular(20)),
+                                            side: BorderSide(
+                                                color: Colors.blue.shade900)))),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ExhabitCarts(Exhabit: '${currentUser.fullName}',)));
+                                },
+                                icon: Icon(Icons.ac_unit),
+                                label: Text("طلبات الشراء")),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
 

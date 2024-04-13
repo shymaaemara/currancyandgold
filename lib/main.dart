@@ -23,6 +23,7 @@ import 'package:currancyandgold/screens/user/user_cart.dart';
 import 'package:currancyandgold/screens/user/user_company.dart';
 import 'package:currancyandgold/screens/user/user_currency.dart';
 import 'package:currancyandgold/screens/user/user_gold.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ import 'firebase_options.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -72,7 +74,7 @@ class MyApp extends StatelessWidget {
       FirebaseAuth.instance.currentUser?.email == 'admin@gmail.com'
           ?
       const AdminHomePage()
-          : FirebaseAuth.instance.currentUser!.displayName == 'معرض'?
+          : FirebaseAuth.instance.currentUser?.displayName == 'معرض'?
       const CustomerHomePage():const OpenScreen()
         ,
 
@@ -99,9 +101,9 @@ class MyApp extends StatelessWidget {
           ExhabitLogin.routeName: (ctx) => ExhabitLogin(),
           ExhabitExhabitions.routeName: (ctx) =>  ExhabitExhabitions(Exhabitname: '',),
           ExhabitHome.routeName: (ctx) =>  ExhabitHome(),
-          ExhabitCarts.routeName: (ctx) =>  ExhabitCarts(Exhabitname: '',),
+          ExhabitCarts.routeName: (ctx) =>  ExhabitCarts(Exhabit: '',),
           UserExhabition.routeName: (ctx) =>   UserExhabition(),
-          UserCart.routeName: (ctx) =>   UserCart(Exhabitname: '',),
+          UserCart.routeName: (ctx) =>   UserCart(Exhabit: '',),
         });
   }
 }
